@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smarty Modbus</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script>
+        function openTab(evt, cityName) {
+            // Declare all variables
+            var i, tabcontent, tablinks;
+
+            // Get all elements with class="tabcontent" and hide them
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Get all elements with class="tablinks" and remove the class "active"
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+</head>
+<body>
+<div class="topnav">
+    <h1>First configuration</h1>
+</div>
+<div class="content">
+    <div class="card-grid">
+        <div class="card">
+
+            <div class="tab">
+                <button id="RTUButton" class="tablinks" onclick="openTab(event, 'RTU')">RTU</button>
+                <button id="TCPButton" class="tablinks" onclick="openTab(event, 'TCP/IP')">TCP/IP</button>
+                <button id="TCPButton" class="tablinks" onclick="openTab(event, 'WIFI/IP')">WIFI</button>
+
+            </div>
+            <!-- Tab content -->
+            <div id="RTU" class="tabcontent">
+                <form action="/get" method="GET">
+                    <p>
+                        <label for="encryptionKey">Encryption Key</label><br>
+                        <input type="text" id="encryptionKey" name="encryptionKey" minlength="32" maxlength="32"autocomplete="off" required><br>
+                        <label for="mBitrate">Modbus Bitrate</label><br>
+                        <select name="mBitrate" id="mBitrate" required>
+                            <option value="115200">115200</option>
+                            <option value="57600">57600</option>
+                            <option value="38400">38400</option>
+                            <option value="19200">19200</option>
+                            <option value="9600">9600</option>
+                            <option value="4800">4800</option>
+                            <option value="2400">2400</option>
+                            <option value="1200">1200</option>
+                        </select><br>
+                        <label for="mSlaveAddress">Modbus Slave Address</label><br>
+                        <input type="number" id="mSlaveAddress" name="mSlaveAddress" min="0" max="255" required><br>
+                        <label for="mStopBit">Modbus Stop Bit</label><br>
+                        <select name="mStopBit" id="mStopBit" required>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                        </select><br>
+                        <label for="mParity">Modbus Parity</label><br>
+                        <select name="mParity" id="mParity" required>
+                            <option value="NONE">NONE</option>
+                            <option value="ODD">ODD</option>
+                            <option value="EVEN">EVEN</option>
+                        </select><br>
+                        <input type="submit" value="Submit">
+                    </p>
+                </form>
+            </div>
+
+            <div id="TCP/IP" class="tabcontent">
+                <form action="/get" method="GET">
+                    <p>
+                        <label for="encryptionKey">Encryption Key</label><br>
+                        <input type="text" id="encryptionKey" name="encryptionKey" minlength="32" maxlength="32"autocomplete="off" required><br>
+                        <label for="mIPAddress">Modbus IP Address</label><br>
+                        <input type="text" id="mIPAddress" name="mIPAddress" minlength="7" maxlength="15" size="15"
+                               placeholder="xxx.xxx.xxx.xxx" autocomplete="off"
+                               pattern="^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$"
+                               required><br>
+                        <label for="tcpGateway">Modbus Gateway IP</label><br>
+                        <input type="text" id="tcpGateway" name="tcpGateway" minlength="7" maxlength="15" size="15"
+                               placeholder="xxx.xxx.xxx.xxx" autocomplete="off"
+                               pattern="^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$"
+                               required><br>
+                        <label for="tcpSubnet">Modbus Subnet</label><br>
+                        <input type="text" id="tcpSubnet" name="tcpSubnet" minlength="7" maxlength="15" size="15"
+                               placeholder="xxx.xxx.xxx.xxx" autocomplete="off"
+                               pattern="^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$"
+                               required><br>
+                        <label for="tcpDns">Modbus DNS</label><br>
+                        <input type="text" id="tcpDns" name="tcpDns" minlength="7" maxlength="15" size="15"
+                               placeholder="xxx.xxx.xxx.xxx" autocomplete="off"
+                               pattern="^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$"
+                               required><br>
+                        <input type="submit" value="Submit">
+                    </p>
+                </form>
+            </div>
+
+            <div id="WIFI/IP" class="tabcontent">
+                <form action="/get" method="GET">
+                    <p>
+                        <label for="encryptionKey">Encryption Key</label><br>
+                        <input type="text" id="encryptionKey" name="encryptionKey" minlength="32" maxlength="32"autocomplete="off" required><br>
+                        <label for="wifiSsid">WiFi SSID</label><br>
+                        <input type="text" id="wifiSsid" name="wifiSsid" required><br>
+                        <label for="wifiPass">WiFi Password</label><br>
+                        <input type="text" id="wifiPass" name="wifiPass" required><br>
+
+                        <label for="wifiIP">Modbus WiFi IP Address</label><br>
+                        <input type="text" id="wifiIP" name="wifiIP" minlength="7" maxlength="15" size="15"
+                               placeholder="xxx.xxx.xxx.xxx" autocomplete="off"
+                               pattern="^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$"
+                               required><br>
+                        <label for="tcpGateway">Modbus WiFi Gateway IP</label><br>
+                        <input type="text" id="wifiGateway" name="wifiGateway" minlength="7" maxlength="15" size="15"
+                               placeholder="xxx.xxx.xxx.xxx" autocomplete="off"
+                               pattern="^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$"
+                               required><br>
+                        <label for="tcpSubnet">Modbus WiFi Subnet</label><br>
+                        <input type="text" id="wifiSubnet" name="wifiSubnet" minlength="7" maxlength="15" size="15"
+                               placeholder="xxx.xxx.xxx.xxx" autocomplete="off"
+                               pattern="^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$"
+                               required><br>
+                        <input type="submit" value="Submit">
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById("RTUButton").click();
+</script>
+</body>
+</html>
